@@ -2,10 +2,242 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="../js/vue.min.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
     <title>注册</title>
 </head>
 <body>
-    
+    <style>
+        html,body,#app{
+            width: 100%;
+            height: 100%;
+        }
+        .loginBg{
+            background-color: #d3d5d5;
+            height: 100%;
+            background-image: url('../img/background2.jpg');
+            background-size: 100% 100%;
+        }
+        .login{
+            background-color: #fff;
+            width: 360px;
+            height: 400px;
+            border-radius: 10px;
+            margin: 0 auto;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 10px;
+        }
+        .login > p{
+            text-align: center;
+            font-weight: bold;
+            letter-spacing: 6px;
+            color: rgb(86, 223, 223);
+        }
+        .subBtn,.register{
+            width: 80%;
+            height: 30px;
+            line-height: 30px;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 6px;
+            font-size: 16px;
+            text-align: center;
+            background-color: rgb(86, 223, 223);
+            margin: 0 auto;
+            margin-top: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .register{
+            margin-top: 20px;
+        }
+        .loginForm{
+            margin-top: 20px;
+            padding: 0 10%;
+        }
+        .loginForm >div{
+            display: flex;
+            align-items: center;
+            margin-top: 16px;
+        }
+        .loginForm >div > p{
+            border-radius: 4px;
+            border: 1px solid #d3d5d5;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        .loginForm >div > p > span{
+            display: inline-block;
+            width: 30px;
+            height: 28px;
+            background-color: #eee;
+            text-align: center;
+            line-height: 28px;
+        }
+        .loginForm >div > p >input{
+            outline: none;
+            border: none;
+            margin-left: 4px;
+            width: 100%;
+            
+        }
+        .loginForm >div.codeInput{
+            width: 100%;
+        }
+        .loginForm >div.codeInput > div{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .loginForm >div.codeInput > div >button{
+            background-color: #fff;
+            color:  rgb(86, 223, 223);
+            border: 1px solid #d3d5d5;
+            padding: 0 6px;
+            font-size: 14px;
+            cursor: pointer;
+            outline: none;
+            width: 90px;
+            text-align: center;
+            border-radius: 14px;
+        }
+        .loginForm >div.codeInput > div input{
+            width: 120px;
+            border: 1px solid #d3d5d5;
+            outline: none;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 4px;
+            padding: 3px;
+            font-size: 14px;
+        }
+    </style>
+    <div id="app">
+        <div class="loginBg">
+            <div class="login">
+                <p>注册</p>
+                <div class="loginForm">
+                    <div class="phone">
+                        <p><span><i class="el-icon-user" style="font-size: 20px;color: #d3d5d5;"></i></span><input type="text" placeholder="账号" v-model='phone'></p>
+                    </div>
+                    <div class="pwd">
+                        <p><span><i class="el-icon-lock" style="font-size: 20px;color: #d3d5d5;"></i></span><input type="password" placeholder="密码" v-model='pwd'></p>
+                    </div>
+                    <div class="pwd">
+                        <p><span><i class="el-icon-lock" style="font-size: 20px;color: #d3d5d5;"></i></span><input type="password" placeholder="确认密码" v-model='surepwd'></p>
+                    </div>
+                    <div>
+                        <p><span><i class="el-icon-bank-card" style="font-size: 20px;color: #d3d5d5;"></i></span><input type="text" placeholder="请输入银行卡号" v-model='bandCard'></p>
+                    </div>
+                    <div class="codeInput">
+                        <div><input type="text" placeholder="请输入验证码" v-model='code'><button :disabled='time<10?true:false' @click='getCode'>{{time<10?time + "s":'发送验证码'}}</button></div>
+                    </div>
+                </div>
+                <div class="register" @click='register'>注册</div>
+                <div class="subBtn" @click='login'>去登录</div>
+                
+            </div>
+        </div>
+    </div>
 </body>
+<script src="../js/band.js"></script>
+<script>
+    var app = new Vue({
+        el:'#app',
+        data(){
+            return{
+                phone:'',
+                pwd:'',
+                surepwd:'',
+                bandCard:'',
+                code:'',
+                time:10,
+                timeClock:'',
+                saveCode:'',//保存验证码
+
+
+            }
+            // 6217996590011721099
+        },
+        methods:{
+            register(){
+                var pwdeg = new RegExp(/^[\da-zA-z]{6,12}$/)
+                var phoneReg = new RegExp(/^1(3[0-9]|5[0-3,5-9]|7[1-3,5-8]|8[0-9])\d{8}$/)
+                if(!phoneReg.test(this.phone)){
+                    this.$message('请输入正确的手机号')
+                    return
+                }
+                if(!pwdeg.test(this.pwd)){
+                    this.$message('请输入6-12位密码')
+                    return
+                }else if(this.pwd == ''){
+                    this.$message('请输入密码')
+                    return
+                }
+                if(this.surepwd != this.pwd){
+                    this.$message('两次输入密码不同，请重新输入')
+                    this.surepwd = ''
+                    return
+                }
+                if(!luhnCheck(this.bandCard)){
+                    this.$message('请输入正确的银行卡号')
+                    return
+                }
+                if(!(this.code == this.saveCode)){
+                    this.$message('请输入正确的验证码')
+                    return
+                }
+                // 注册
+                axios({
+                    method:'POST',
+                    url:'',
+                    data:{
+                        password:this.pwd,
+                        phone:this.phone,
+                        bandCard:this.bandCard,
+                        code:this.code
+                    },
+                    success:(res)=> {
+                        console.log(res)
+                        if(res.data.status == 1){
+                            this.$message('注册成功')
+                            window.open('')
+                        }
+                    }
+                })
+            },
+            // 直接登录
+            login(){
+                location.href = './login.html'
+            },
+            getCode(){
+                this.timeClock = setInterval(() => {
+                    this.time --;
+                    if(this.time == 0){
+                        clearInterval(this.timeClock)
+                        this.time = 10
+                    }
+                },1000)
+                // 获取验证码
+                axios({
+                    method:'POST',
+                    url:'',
+                    data:{},
+                    success:(res)=> {
+                        console.log(res)
+                        this.saveCode = res.data.data
+                    }
+                })
+            }
+        }
+    })
+</script>
 </html>
