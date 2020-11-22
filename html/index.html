@@ -3,12 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"> -->
     <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/index.css">
     <script src="../js/vue.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
+    
     <title>商城首页</title>
 </head>
 <body>
-    
+    <div id="app">
+        <div class="index">
+            <div class="head">
+                <div class="headContent">
+                    <div class="logo"><img src="../img/logo.jpg" alt="" srcset=""></div>
+                    <div class="headNav">
+                        <div class="active">首页</div>
+                        <div>购物车</div>
+                        <div>我的订单</div>
+                    </div>
+                    <div class="searchBox">
+                        <i class="el-icon-search" style="color:#aaa;font-size: 22px;"></i>
+                        <input type="text" v-model="form.key" @keyup.enter='search' placeholder="请输入关键字">
+                        <span v-show='form.key' @click='cleadSearBox' style="cursor: pointer;"><i class="el-icon-circle-close" style="color:#aaa;font-size: 22px;"></i></span>
+                    </div>
+                    <div class="address_login">
+                        <div class="address">地址管理</div>
+                        <div class="login_register">
+                            <span>登录</span>/<span>注册</span>
+                        </div>
+                        <!-- <div class="login_register">用户名<span class="outLogin">退出登录</span></div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="goodsNavBox">
+                    <div class="navTitle">商品分类</div>
+                    <div class="navList">
+                        <div v-for='item in navList' @click='changeClass(item.id)' :class='nowClassId == item.id?"active":""'><span>{{item.name}}</span></div>
+                    </div>
+                </div>
+                <div class="goodsListBox">
+
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
+<script>
+    var app = new Vue({
+        el:'#app',
+        data(){
+            return{
+                nowClassId:'',
+                form:{
+                    page:1,
+                    limit:20,
+                    key:''
+                },
+                navList:[
+                    {
+                        id:1,
+                        name:'二手包'
+                    },{
+                        id:2,
+                        name:'二手表'
+                    },{
+                        id:3,
+                        name:'二手火机'
+                    },
+                ]
+            }
+        },
+        methods: {
+            cleadSearBox(){
+                this.form.key = ''
+            },
+            getList(){
+                console.log(1111)
+            },
+            search(){
+                this.getList()
+            },
+            changeClass(id){
+                
+                if(this.nowClassId == id){
+                    this.nowClassId = ''
+                }else{
+                    this.nowClassId = id
+                }
+                this.getList()
+            }
+        },
+        mounted() {
+            this.getList()
+        },
+    })
+</script>
 </html>
