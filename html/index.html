@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"> -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/index.css">
     <script src="../js/vue.min.js"></script>
-    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
-    <!-- <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     
     <title>商城首页</title>
 </head>
@@ -45,7 +45,13 @@
                     </div>
                 </div>
                 <div class="goodsListBox">
-
+                    <div v-for='item in list' class="productBox">
+                        <div class="img">
+                            <img :src="item.url" alt="">
+                        </div>
+                        <div class="productName"><span>{{item.name}}</span></div>
+                        <div class="price"><span>￥</span><span>{{item.price}}</span></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -63,6 +69,39 @@
                     limit:20,
                     key:''
                 },
+                list:[
+                    {
+                        id:1,
+                        name:'不是二手商品的设任何搜收到货佛啊哈哈好风凉话',
+                        price:123,
+                        url:'http://pic11.secooimg.com/product/240/240/51/54/36a99564ecc749929f30ca528b3705b4.jpg'
+
+                    },{
+                        id:2,
+                        name:'不是二手商品的设任何搜收到货佛啊哈哈好风凉话',
+                        price:123,
+                        url:'http://pic11.secooimg.com/product/240/240/51/54/36a99564ecc749929f30ca528b3705b4.jpg'
+
+                    },{
+                        id:3,
+                        name:'不是二手商品的设任何搜收到货佛啊哈哈好风凉话',
+                        price:123,
+                        url:'http://pic11.secooimg.com/product/240/240/51/54/36a99564ecc749929f30ca528b3705b4.jpg'
+
+                    },{
+                        id:4,
+                        name:'不是二手商品的设任何搜收到货佛啊哈哈好风凉话',
+                        price:123,
+                        url:'http://pic11.secooimg.com/product/240/240/51/54/36a99564ecc749929f30ca528b3705b4.jpg'
+
+                    },{
+                        id:5,
+                        name:'不是二手商品的设任何搜收到货佛啊哈哈好风凉话',
+                        price:123,
+                        url:'http://pic11.secooimg.com/product/240/240/51/54/36a99564ecc749929f30ca528b3705b4.jpg'
+
+                    },
+                ],
                 navList:[
                     {
                         id:1,
