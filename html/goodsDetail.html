@@ -3,12 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/goodsDetail.css">
     <script src="../js/vue.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    
     <title>商品详情</title>
 </head>
 <body>
-    
+    <div id="app">
+        <div class="index">
+            <div class="head">
+                <div class="headContent">
+                    <div class="logo"><img src="../img/logo.jpg" alt="" srcset=""></div>
+                    <div class="headNav">
+                        <div @click='toIndex'>首页</div>
+                        <div @click='toCar'>购物车</div>
+                        <div @click='toOrder'>我的订单</div>
+                    </div>
+                    <!-- <div class="searchBox">
+                        <i class="el-icon-search" style="color:#aaa;font-size: 22px;"></i>
+                        <input type="text" v-model="form.key" @keyup.enter='search' placeholder="请输入关键字">
+                        <span v-show='form.key' @click='cleadSearBox' style="cursor: pointer;"><i class="el-icon-circle-close" style="color:#aaa;font-size: 22px;"></i></span>
+                    </div> -->
+                    <div class="address_login">
+                        <div class="address" @click='toAddress'>地址管理</div>
+                        <div class="login_register">
+                            <span @click='toLogin'>登录</span>/<span @click='toRegister'>注册</span>
+                        </div>
+                        <!-- <div class="login_register">用户名<span class="outLogin">退出登录</span></div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="breadcrumb">
+                    <span class="backIndex" @click='goodsDetailShow = false'>首页</span><i class="el-icon-arrow-right"></i><span>商品详情</span>
+                </div>
+                <div class="goodsDetail">
+                    <div class="goodsImg">
+                        <div><img src="../img/change-2_03.jpg" alt=""></div>
+                    </div>
+                    <div class="goodsInfo">
+                        <div class="detailInfos">
+                            <p class="goodName">{{info.title}}</p>
+                            <div class="goodeDesc">
+                               <div class="price"><span>价格</span>：<p>￥{{info.price}}</p></div>
+                               <div class="old_new"><span>新旧程度</span>：<p>{{info.old_new_degree}}</p></div>
+                               <div class="desc"><span>商品描述</span>：<p>{{info.desc}}</p></div>
+                               <div class="stock"><span>库存</span>：<p>{{info.stock}}</p></div>
+                            </div>
+                            <div class="buyNum"><span>购买数量</span>：<p><el-input-number v-model="num" :max='info.stock' @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number></p></div>
+                        </div>
+                        <div class="addBuyBtn">
+                            <div class="buyBtn">立即购买</div>
+                            <div class="addCarBtn"><span><i class="el-icon-shopping-cart-2"></i>加入购物车</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="detailImgBox">
+                    <p class="detailImgTitle">详情图片</p>
+                    <div class="detailImgList">
+                        <div v-for='item in info.detail_img'><img :src="item" alt=""></div>
+                    </div>
+                </div>
+            </div>
+            <div></div>
+        </div>
+    </div>
 </body>
+
+<script>
+    var app = new Vue({
+        el:'#app',
+        data(){
+            return{
+                num:1,
+                info:{
+                    id:1,
+                    title:'Nike/耐克 Air Jordan 1 AJ1 中小童 黑蓝橙 运动休闲 篮球鞋 BQ6066-123',
+                    price:129,
+                    old_new_degree:'九成新',
+                    desc:'这里是商品描述',
+                    stock:10,
+                    cover_img:'../img/change-2_03.jpg',
+                    detail_img:['../img/change-2_03.jpg','../img/change-2_03.jpg','../img/change-2_03.jpg','../img/change-2_03.jpg'],
+                    status:1
+                }
+            }
+        },
+        methods: {
+            handleChange(){
+
+            },
+            toRegister(){
+
+            },
+            toLogin(){
+
+            },
+            toOrder(){
+
+            },
+            toCar(){
+                location.href = './goodsCar.html'
+            },
+            toAddress(){
+
+            },
+            toIndex(){
+                location.href = './index.html'
+            },
+            cleadSearBox(){
+                this.form.key = ''
+            },
+            getList(){
+                console.log(1111)
+            },
+            search(){
+                this.getList()
+            },
+        },
+        mounted() {
+        },
+    })
+</script>
 </html>

@@ -1,0 +1,226 @@
+.head{
+    width: 100%;
+    height: 60px;
+    background-color: #333333;
+
+}
+.headContent{
+    margin: 0 auto;
+    height: 100%;
+    width: 1400px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+}
+.headNav{
+    display: flex;
+    font-size: 22px;
+    flex: 2;
+}
+.headNav >div{
+    padding: 0 30px;
+    height: 60px;
+    line-height: 60px;
+    cursor: pointer;
+    margin-right: 40px;
+}
+.headNav >div.active{
+    height:60px;
+    border-bottom: 4px solid #f19108;
+    color: #f19108;
+}
+.searchBox{
+    background-color: #fff;
+    height: 30px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    padding: 0 6px;
+    flex: 1;
+
+}
+.searchBox input{
+    width: 100%;
+    outline: none;
+    border: none;
+    text-indent: 4px;
+}
+.address_login{
+    margin-left: 30px;
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+.address{
+    cursor: pointer;
+    margin-right: 30px;
+}
+.login_register{
+    
+}
+.login_register > span{
+    cursor: pointer;
+}
+.login_register > span:hover{
+    color: #f19108;
+}
+.outLogin{
+    display: inline-block;
+    margin-left: 20px;
+}
+.logo{
+    width: 80px;
+    height: 60px;
+    margin-right: 20px;
+}
+.logo img{
+    width: 100%;
+    height: 100%;
+}
+
+
+.content{
+    width: 1400px;
+    margin: 40px auto;
+}
+
+/* 详情 */
+.breadcrumb{
+
+}
+.breadcrumb .backIndex{
+    cursor: pointer;
+}
+.breadcrumb > i{
+    display: inline-block;
+    margin: 0 10px;
+}
+.goodsDetail{
+    margin-top: 20px;
+    width: 100%;
+    box-shadow: 0 2px 5px #ccc;
+    padding: 40px 50px 12px 40px;
+    background: #fff;
+    height: 500px;
+    display: flex;
+}
+.goodsDetail .goodsImg{
+    width: 500px;
+    
+}
+.goodsImg >div{
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+    border: 1px solid #dedede;
+}
+.goodsImg img{
+    width: 100%;
+    height: 100%;
+}
+.goodsInfo{
+    margin-left: 30px;
+    width: calc(100% - 530px);
+}
+.goodName{
+    padding: 0 0 30px;
+    
+}
+.goodeDesc{
+    padding: 20px 0;
+    border-bottom: 1px dashed #000;
+    border-top: 1px dashed #000;
+}
+.goodeDesc >div {
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+}
+.goodeDesc >div >span{
+    color: #666;
+    display: inline-block;
+    width: 70px;
+    text-align-last: justify;
+}
+.goodeDesc >div p{
+    color: #999;
+    margin-left: 10px;
+}
+.goodeDesc .price>p{
+    font-size: 22px;
+    color: #e93a38;
+}
+.buyNum{
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+}
+.buyNum >span{
+    color: #666;
+    display: inline-block;
+    width: 70px;
+    text-align-last: justify;
+}
+.buyNum > p{
+    margin-left: 10px;
+}
+.addBuyBtn{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+.addBuyBtn >div{
+    width: 140px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.buyBtn{
+    background-color: #f19108;
+    color: #fff;
+    margin-right: 20px;
+}
+.addCarBtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f19108;
+    border: 2px solid #f19108;
+}
+.detailImgBox{
+    margin-top: 20px;
+    width: 100%;
+    box-shadow: 0 2px 5px #ccc;
+    padding: 20px 50px 12px 40px;
+    background: #fff;
+}
+.detailImgTitle{
+    color: #fff;
+    width: 140px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    background-color: #7f69b3;
+}
+.detailImgList{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+.detailImgList >div {
+    width: 400px;
+    height: 400px;
+    border: 1px solid #dedede;
+    margin-right: 20px;
+    margin: 0 55px 20px 0;
+}
+.detailImgList >div:nth-of-type(3n){
+    margin: 0 0 55px 0;
+}
+.detailImgList > div >img{
+    width: 100%;
+    height: 100%;
+}

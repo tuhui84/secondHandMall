@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/order.css">
+    <link rel="stylesheet" href="../css/goodsCar.css">
     <script src="../js/vue.min.js"></script>
     <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
-    <title>我的订单</title>
+    <title>购物车</title>
 </head>
 <body>
     <div id="app">
-        <div class="goodsDetail">
+        <div class="goodsCar">
             <div class="head">
                 <div class="headContent">
                     <div class="logo"><img src="../img/logo.jpg" alt="" srcset=""></div>
                     <div class="headNav">
-                        <div  @click='toIndex'>首页</div>
-                        <div @click='toCar'>购物车</div>
-                        <div class="active">我的订单</div>
+                        <div @click='toIndex'>首页</div>
+                        <div class="active">购物车</div>
+                        <div @click='toOrder'>我的订单</div>
                     </div>
                     <!-- <div class="searchBox">
                         <i class="el-icon-search" style="color:#aaa;font-size: 22px;"></i>
@@ -51,13 +51,13 @@
 
             },
             toLogin(){
-
+                
+            },
+            toOrder(){
+                location.href = './order.html'
             },
             toIndex(){
-
-            },
-            toCar(){
-
+                location.href = './index.html'
             },
             toAddress(){
 

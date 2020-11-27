@@ -126,6 +126,7 @@
     height: auto;
     padding: 20px 20px;
     display: flex;
+    flex-wrap: wrap;
 }
 .goodsListBox > div{
     width: 240px;
@@ -163,4 +164,31 @@
     color: #000;
     font-weight: 600;
     padding: 10px;
+}
+
+
+
+/* 详情 */
+.breadcrumb{
+
+}
+.breadcrumb .backIndex{
+    cursor: pointer;
+}
+.breadcrumb > i{
+    display: inline-block;
+    margin: 0 10px;
+}
+.goodsDetail{
+    margin-top: 20px;
+    width: 100%;
+    box-shadow: 0 2px 5px #ccc;
+    padding: 40px 50px 12px 40px;
+    background: #fff;
+    height: 500px;
+}
+.pagination{
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 0;
 }

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/index.css">
     <script src="../js/vue.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     
     <title>商城首页</title>
@@ -19,9 +19,9 @@
                 <div class="headContent">
                     <div class="logo"><img src="../img/logo.jpg" alt="" srcset=""></div>
                     <div class="headNav">
-                        <div class="active">首页</div>
-                        <div>购物车</div>
-                        <div>我的订单</div>
+                        <div class="active iconfont" @click='toIndex'>首页</div>
+                        <div @click='toCar'>购物车</div>
+                        <div @click='toOrder'>我的订单</div>
                     </div>
                     <div class="searchBox">
                         <i class="el-icon-search" style="color:#aaa;font-size: 22px;"></i>
@@ -29,9 +29,9 @@
                         <span v-show='form.key' @click='cleadSearBox' style="cursor: pointer;"><i class="el-icon-circle-close" style="color:#aaa;font-size: 22px;"></i></span>
                     </div>
                     <div class="address_login">
-                        <div class="address">地址管理</div>
+                        <div class="address" @click='toAddress'>地址管理</div>
                         <div class="login_register">
-                            <span>登录</span>/<span>注册</span>
+                            <span @click='toLogin'>登录</span>/<span @click='toRegister'>注册</span>
                         </div>
                         <!-- <div class="login_register">用户名<span class="outLogin">退出登录</span></div> -->
                     </div>
@@ -45,13 +45,23 @@
                     </div>
                 </div>
                 <div class="goodsListBox">
-                    <div v-for='item in list' class="productBox">
+                    <div v-for='item in list' class="productBox" @click='toDetail(item.id)'>
                         <div class="img">
                             <img :src="item.url" alt="">
                         </div>
                         <div class="productName"><span>{{item.name}}</span></div>
                         <div class="price"><span>￥</span><span>{{item.price}}</span></div>
                     </div>
+                </div>
+                <div class="pagination">
+                    <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page.sync="currentPage"
+                    :page-size="20"
+                    layout="prev, pager, next, jumper"
+                    :total="total">
+                    </el-pagination>
                 </div>
             </div>
         </div>
@@ -64,6 +74,8 @@
         data(){
             return{
                 nowClassId:'',
+                currentPage:1,
+                total:100,
                 form:{
                     page:1,
                     limit:20,
@@ -101,6 +113,37 @@
                         url:'http://pic11.secooimg.com/product/240/240/51/54/36a99564ecc749929f30ca528b3705b4.jpg'
 
                     },
+                    {
+                        id:6,
+                        name:'不是二手商品的设任何搜收到货佛啊哈哈好风凉话',
+                        price:123,
+                        url:'http://pic11.secooimg.com/product/240/240/51/54/36a99564ecc749929f30ca528b3705b4.jpg'
+
+                    },{
+                        id:7,
+                        name:'不是二手商品的设任何搜收到货佛啊哈哈好风凉话',
+                        price:123,
+                        url:'http://pic11.secooimg.com/product/240/240/51/54/36a99564ecc749929f30ca528b3705b4.jpg'
+
+                    },{
+                        id:8,
+                        name:'不是二手商品的设任何搜收到货佛啊哈哈好风凉话',
+                        price:123,
+                        url:'http://pic11.secooimg.com/product/240/240/51/54/36a99564ecc749929f30ca528b3705b4.jpg'
+
+                    },{
+                        id:9,
+                        name:'不是二手商品的设任何搜收到货佛啊哈哈好风凉话',
+                        price:123,
+                        url:'http://pic11.secooimg.com/product/240/240/51/54/36a99564ecc749929f30ca528b3705b4.jpg'
+
+                    },{
+                        id:10,
+                        name:'不是二手商品的设任何搜收到货佛啊哈哈好风凉话',
+                        price:123,
+                        url:'http://pic11.secooimg.com/product/240/240/51/54/36a99564ecc749929f30ca528b3705b4.jpg'
+
+                    },
                 ],
                 navList:[
                     {
@@ -117,6 +160,30 @@
             }
         },
         methods: {
+            handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+            },
+            handleCurrentChange(val) {
+                console.log(`当前页: ${val}`);
+            },
+            toRegister(){
+
+            },
+            toLogin(){
+
+            },
+            toOrder(){
+                location.href = './order.html'
+            },
+            toCar(){
+                location.href = './goodsCar.html'
+            },
+            toAddress(){
+
+            },
+            toIndex(){
+                location.reload()
+            },
             cleadSearBox(){
                 this.form.key = ''
             },
@@ -134,6 +201,9 @@
                     this.nowClassId = id
                 }
                 this.getList()
+            },
+            toDetail(id){
+                location.href = './goodsDetail.html?goodsId=' + id
             }
         },
         mounted() {
