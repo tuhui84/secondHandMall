@@ -88,12 +88,14 @@
 }
 .addressListBox{
     margin-top: 30px;
+    padding: 0 40px;
 }
+
 table{
     /* border: 1px solid #eee; */
     border-spacing: 0;
     text-align: center;
-    width: 80%;
+    width: 100%;
     color: #333;
 }
 th,td{

@@ -206,19 +206,20 @@
     background-color: #7f69b3;
 }
 .detailImgList{
-    display: flex;
-    flex-wrap: wrap;
+    /* display: flex; */
+    /* flex-wrap: wrap; */
     margin-top: 20px;
 }
 .detailImgList >div {
-    width: 400px;
-    height: 400px;
+    width: 800px;
+    height: auto;
+    margin: 20px auto;
     border: 1px solid #dedede;
-    margin-right: 20px;
-    margin: 0 55px 20px 0;
+    /* margin-right: 20px; */
+    /* margin: 0 55px 20px 0; */
 }
 .detailImgList >div:nth-of-type(3n){
-    margin: 0 0 55px 0;
+    /* margin: 0 0 55px 0; */
 }
 .detailImgList > div >img{
     width: 100%;
