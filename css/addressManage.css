@@ -1,0 +1,117 @@
+.head{
+    width: 100%;
+    height: 60px;
+    background-color: #333333;
+
+}
+.headContent{
+    margin: 0 auto;
+    height: 100%;
+    width: 1400px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+}
+.headNav{
+    display: flex;
+    font-size: 22px;
+    flex: 2;
+}
+.headNav >div{
+    padding: 0 30px;
+    height: 60px;
+    line-height: 60px;
+    cursor: pointer;
+    margin-right: 40px;
+}
+.headNav >div.active{
+    height:60px;
+    border-bottom: 4px solid #f19108;
+    color: #f19108;
+}
+.searchBox{
+    background-color: #fff;
+    height: 30px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    padding: 0 6px;
+    flex: 1;
+
+}
+.searchBox input{
+    width: 100%;
+    outline: none;
+    border: none;
+    text-indent: 4px;
+}
+.address_login{
+    margin-left: 30px;
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+.address{
+    cursor: pointer;
+    margin-right: 30px;
+}
+.login_register{
+    
+}
+.login_register > span{
+    cursor: pointer;
+}
+.login_register > span:hover{
+    color: #f19108;
+}
+.outLogin{
+    display: inline-block;
+    margin-left: 20px;
+}
+.logo{
+    width: 80px;
+    height: 60px;
+    margin-right: 20px;
+}
+.logo img{
+    width: 100%;
+    height: 100%;
+}
+
+
+.content{
+    width: 1200px;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 30px;
+}
+.addressListBox{
+    margin-top: 30px;
+}
+table{
+    /* border: 1px solid #eee; */
+    border-spacing: 0;
+    text-align: center;
+    width: 80%;
+    color: #333;
+}
+th,td{
+    border: 1px solid #dedede;
+    padding: 10px 10px;
+}
+th{
+    background-color: #EBECF0;
+}
+tr:hover{
+    background-color: #EBECF0;
+}
+.editAddressBtn span{
+    color: #000;
+    cursor: pointer;
+}
+.editAddressBtn span:hover{
+    color: blue;
+}
+
+

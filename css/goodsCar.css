@@ -78,3 +78,102 @@
     width: 100%;
     height: 100%;
 }
+.content{
+    width: 1400px;
+    margin: 40px auto;
+}
+.goodsBox{
+    width: 100%;
+}
+.goodsBox > div{
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #e8e8e8;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+.goodsBox > div:hover{
+    background-color: #FFF8E1;
+}
+.checkbox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+}
+.checkbox input{
+    width: 20px;
+    height: 20px;
+}
+.img_name{
+    display: flex;
+}
+.img_name .img{
+    width: 100px;
+    height: 100px;
+    border: 1px solid #e8e8e8;
+
+}
+.img_name .img >img{
+    width: 100%;
+    height: 100%;
+}
+.img_name .name {
+    width: 200px;
+    margin-left: 20px;
+}
+
+.goodsDetail >div{
+    display: flex;
+    align-items: center;
+    color: #aaa;
+}
+.price{
+    color: #000;
+    font-weight: bold;
+}
+.totalPrice{
+    color: #e93a38;
+    font-weight: bold;
+}
+.buyBox{
+    width: 100%;
+    height: 60px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 0 30px;
+}
+.countAllPrice{
+    display: flex;
+    align-items: center;
+}
+.allprice{
+    font-size: 18px;
+    color: #e93a38;
+    font-weight: bold;
+}
+.toBuy{
+    width: 100px;
+    text-align: center;
+    background-color: #e93a38;
+    color: #fff;
+    height: 60px;
+    line-height: 60px;
+    margin-left: 30px;
+    cursor: pointer;
+}
+.editGoods{
+    display: flex;
+}
+label{
+    display: flex;
+}
+.deleteAll{
+    margin-left: 20px;
+    cursor: pointer;
+}

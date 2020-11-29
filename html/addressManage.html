@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/addressManage.css">
+    <script src="../js/vue.min.js"></script>
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <title>地址管理</title>
+</head>
+<body>
+    <div id="app">
+        <div class="index">
+            <div class="head">
+                <div class="headContent">
+                    <div class="logo"><img src="../img/logo.jpg" alt="" srcset=""></div>
+                    <div class="headNav">
+                        <div @click='toIndex'>首页</div>
+                        <div @click='toCar'>购物车</div>
+                        <div @click='toOrder'>我的订单</div>
+                    </div>
+                    <!-- <div class="searchBox">
+                        <i class="el-icon-search" style="color:#aaa;font-size: 22px;"></i>
+                        <input type="text" v-model="form.key" @keyup.enter='search' placeholder="请输入关键字">
+                        <span v-show='form.key' @click='cleadSearBox' style="cursor: pointer;"><i class="el-icon-circle-close" style="color:#aaa;font-size: 22px;"></i></span>
+                    </div> -->
+                    <div class="address_login">
+                        <div class="address" style="color: #f19108;">地址管理</div>
+                        <div class="login_register">
+                            <span @click='toLogin'>登录</span>/<span @click='toRegister'>注册</span>
+                        </div>
+                        <!-- <div class="login_register">用户名<span class="outLogin">退出登录</span></div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <p><span style="cursor: pointer;" @click='addAddress'>+新建地址</span></p>
+                <div class="addressListBox">
+                    <table>
+                        <thead>
+                            <th>收货人</th>
+                            <th>详细地址</th>
+                            <th>电话/手机</th>
+                            <th>操作</th>
+                        </thead>
+                        <tbody>
+                            <tr v-for='item in list' :key='item.id'>
+                                <td>{{item.name}}</td>
+                                <td>{{item.address}}</td>
+                                <td>{{item.phone}}</td>
+                                <td class="editAddressBtn"><span @click='toEditAddress(item.id)'>编辑</span>&nbsp;|&nbsp;<span @click='deleteAddress(item.id)'>删除</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <el-dialog
+            :title="ruleForm.id?'编辑地址':'新建地址'"
+            :visible.sync="dialogVisible"
+            width="30%"
+            >
+            <div class="editAddress">
+                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                    <el-form-item label="收件人" prop="name">
+                        <el-input v-model="ruleForm.name"></el-input>
+                    </el-form-item>
+                    <el-form-item label="电话" prop="phone">
+                        <el-input v-model="ruleForm.phone"></el-input>
+                    </el-form-item>
+                    <el-form-item label="地址信息" prop="address">
+                        <el-cascader
+                        v-model="ruleForm.address"
+                        :options="options"
+                        @change="handleChange">
+                        </el-cascader>
+                    </el-form-item>
+                    <el-form-item label="详细地址" prop="addressDetail">
+                        <el-input v-model="ruleForm.addressDetail"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button @click='cancle'>取消</el-button>
+                        <el-button type="primary" @click="onSubmit('ruleForm')">保存</el-button>
+                      </el-form-item>
+                </el-form>
+            </div>
+            </el-dialog>
+        </div>
+    </div>
+</body>
+<script src="../js/area.js"></script>
+<script>
+    const reg = /^1[3|4|5|7|8][0-9]\d{8}$/
+    var validPhone=(rule, value,callback)=>{
+        if (!value){
+            callback(new Error('请输入电话号码'))
+        }else  if (!reg.test(value)){
+            callback(new Error('请输入正确的11位手机号码'))
+        }else {
+            callback()
+        }
+    }
+    var app = new Vue({
+        el:'#app',
+        data(){
+            return{
+                options:CityInfo,
+                dialogVisible:false,
+                ruleForm:{
+                    id:'',
+                    name:'',
+                    phone:'',
+                    address:'',
+                    addressDetail:''
+                },
+                rules:{
+                    name:[
+                        { required: true, message: '请输入收件人名称', trigger: 'blur' },
+                        // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+                    ],
+                    phone:[
+                        { required: true, trigger: 'blur', validator: validPhone }
+                    ],
+                    address:[
+                    { required: true, message: '请选择地址信息', trigger: 'blur' },
+                    ],
+                    addressDetail:[
+                        { required: true, message: '请填写详细地址', trigger: 'blur' },
+                        { min: 5, message: '长度至少5个字符', trigger: 'blur' }
+                    ]
+                },
+                list:[
+                    {
+                        id:1,
+                        name:'张三',
+                        phone:'15182365152',
+                        address:'四川省成都市武侯区XXXXXXX',
+                        province:'四川省',
+                        city:'成都市',
+                        area:'武侯区',
+                        addressDetail:'XXXXXXX'
+                    },{
+                        id:2,
+                        name:'张三',
+                        phone:'15182365152',
+                        address:'四川省成都市双流区XXXXXXX',
+                        province:'四川省',
+                        city:'成都市',
+                        area:'双流区',
+                        addressDetail:'XXXXXXX'
+                    }
+                ]
+            }
+        },
+        methods: {
+            addAddress(){
+                this.dialogVisible = true
+                this.ruleForm = {
+                    id:'',
+                    name:'',
+                    phone:'',
+                    address:'',
+                    addressDetail:''
+                }
+            },
+            handleChange(value){
+                console.log(value)
+                console.log(this.ruleForm)
+            },
+            onSubmit(formName){
+                this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    // 提交
+                    let formData = {}
+                    formData.name = this.ruleForm.name
+                    formData.phone = this.ruleForm.phone
+                    formData.addressDetail = this.ruleForm.addressDetail
+                    formData.province = this.ruleForm.address[0]
+                    formData.city = this.ruleForm.address[1]
+                    formData.area = this.ruleForm.address[2]
+                    console.log(formData)
+                    // 编辑带上id
+                    if(this.ruleForm.id){
+                        formData.id = this.ruleForm.id
+                    }
+                    // 接口
+                    
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+                });
+            },
+            cancle(){
+                this.dialogVisible = false
+            },
+            toEditAddress(id){
+                let nowAd = this.list.filter(item => {
+                    if(item.id == id){
+                        return item
+                    }
+                })[0]
+                this.dialogVisible = true
+                this.ruleForm.id = nowAd.id
+                this.ruleForm.name = nowAd.name
+                this.ruleForm.addressDetail = nowAd.addressDetail
+                this.ruleForm.phone = nowAd.phone
+                this.ruleForm.address = [nowAd.province,nowAd.city,nowAd.area]
+            },
+            toRegister(){
+
+            },
+            toLogin(){
+
+            },
+            toOrder(){
+
+            },
+            toCar(){
+                location.href = './goodsCar.html'
+            },
+            toAddress(){
+
+            },
+            toIndex(){
+                location.href = './index.html'
+            },
+            cleadSearBox(){
+                this.form.key = ''
+            },
+            getList(){
+                console.log(1111)
+            },
+            search(){
+                this.getList()
+            },
+            deleteAddress(id){
+                this.$confirm('确认删除该地址吗?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                    }).then(() => {
+                        // 接口
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    }).catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: '已取消删除'
+                        });          
+                });
+            }
+        },
+        mounted() {
+        },
+    })
+</script>
+</html>

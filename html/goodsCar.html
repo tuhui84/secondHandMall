@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/goodsCar.css">
     <script src="../js/vue.min.js"></script>
     <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <title>购物车</title>
 </head>
 <body>
@@ -34,19 +36,140 @@
                     </div>
                 </div>
             </div>
+            <div class="content">
+                <div class="goodsBox">
+                    <div v-for='item in list'>
+                        <div class="checkbox"><input type="checkbox" :value='item.id' v-model='checkedIds'></div>
+                        <div class="img_name">
+                            <div class="img"><img :src="item.cover_img" alt=""></div>
+                            <div class="name">{{item.title}}</div>
+                        </div>
+                        <div class="goodsDetail">
+                            <div><span>新旧程度：</span><p>{{item.old_new_degree}}</p></div>
+                            <div><span>商品描述：</span><p>{{item.desc}}</p></div>
+                        </div>
+                        <div class="price"><span>￥{{item.price}}</span></div>
+                        <div class="num"><p><el-input-number v-model="item.num" size='mini' :min="1" :max="item.stock" label="描述文字"></el-input-number></p></div>
+                        <div class="totalPrice"><span>￥{{countPrice(item.num,item.price)}}</span></div>
+                    </div>
+                </div>
+                <div class="buyBox">
+                    <div class="editGoods">
+                        <label for="checkall">
+                            <div class="checkbox"><input type="checkbox" id="checkall" @change='checkAllGoods' v-model='checkedAll'></div>
+                            <span style="cursor: pointer;">全选</span>
+                        </label>
+                        <div class="deleteAll" @click='deleteGoods'>删除</div>
+                    </div>
+                    <div class="countAllPrice">
+                        <div class="allprice">￥{{totalPrice}}</div>
+                        <div class="toBuy" @click='toBuy'>去结算</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
-<script src="../js/vue.min.js"></script>
 <script>
     var app = new Vue({
         el:'#app',
         data(){
             return{
-
+                checkedAll:false,
+                checkedIds:[],
+                list:[
+                    {
+                        id:1,
+                        title:'Nike/耐克 Air Jordan 1 AJ1 中小童 黑蓝橙 运动休闲 篮球鞋 BQ6066-123',
+                        price:129,
+                        old_new_degree:'八成新',
+                        desc:'这里是商品描述',
+                        stock:10,
+                        cover_img:'../img/change-2_03.jpg',
+                        detail_img:['../img/change-2_03.jpg','../img/change-2_03.jpg','../img/change-2_03.jpg','../img/change-2_03.jpg'],
+                        status:1,
+                        num:2
+                    },
+                    {
+                        id:2,
+                        title:'Nike/耐克 Air Jordan 1 AJ1 中小童 黑蓝橙 运动休闲 篮球鞋 BQ6066-123',
+                        price:129,
+                        old_new_degree:'九成新',
+                        desc:'这里是商品描述',
+                        stock:10,
+                        cover_img:'../img/change-2_03.jpg',
+                        detail_img:['../img/change-2_03.jpg','../img/change-2_03.jpg','../img/change-2_03.jpg','../img/change-2_03.jpg'],
+                        status:1,
+                        num:2
+                    }
+                ]
+            }
+        },
+        computed: {
+            countPrice(){
+                return (num,price) => {
+                    return num*price
+                }
+            },
+            totalPrice(){
+                let allPrice = 0
+                let list = this.list.filter(item => {
+                    if(this.checkedIds.indexOf(item.id) != -1){
+                        return item
+                    }
+                })
+                list.forEach(item => {
+                    allPrice += (Number(item.num)*Number(item.price))
+                })
+                return allPrice
+            }
+        },
+        watch: {
+            'checkedIds':function(){
+                let cid = this.checkedIds.length
+                let len = this.list.length
+                if(cid == len){
+                    this.checkedAll = true
+                }else{
+                    this.checkedAll = false
+                }
             }
         },
         methods: {
+            checkAllGoods(){
+                if(!this.checkedAll){
+                    this.checkedIds = []
+                }else{
+                    this.list.forEach(item => {
+                        this.checkedIds.push(item.id)
+                    })
+                }
+            },
+            deleteGoods(){
+                if(this.checkedIds.length){
+                    // 结算
+                    let list = this.list.filter(item => {
+                        if(this.checkedIds.indexOf(item.id) == -1){
+                            return item
+                        }
+                    })
+                    this.list = list
+                    this.$message('删除成功')
+                    this.checkedIds = []
+                    // 调接口删除
+                }else{
+                    this.$message('请至少选择一个商品')
+                }
+                
+            },
+            toBuy(){
+                // this.checkedIds  商品ids
+                if(this.checkedIds.length){
+                    // 结算
+                }else{
+                    this.$message('请至少选择一个商品')
+                }
+            },
             toRegister(){
 
             },

@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/order.css">
     <script src="../js/vue.min.js"></script>
     <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <title>我的订单</title>
 </head>
 <body>
     <div id="app">
-        <div class="goodsDetail">
+        <div class="order">
             <div class="head">
                 <div class="headContent">
                     <div class="logo"><img src="../img/logo.jpg" alt="" srcset=""></div>
@@ -34,19 +36,137 @@
                     </div>
                 </div>
             </div>
+            <div class="content">
+                <div class="orderNav">
+                    <div v-for='item in nav' @click='changeNav(item.status)' :class='nowStatus == item.status?"active":""' :key='item.status'>{{item.title}}</div>
+                </div>
+                <div class="orderList">
+                    <div v-for='item in list' :key='item.order_id'>
+                        <div v-for='items in item.com_list' class="orderDetail">
+                            <div class="img_name">
+                                <div class="img"><img :src="items.cover_img" alt=""></div>
+                                <div class="name">{{items.title}}</div>
+                            </div>
+                            <div class="goodsDetail">
+                                <div><span>新旧程度：</span><p>{{items.old_new_degree}}</p></div>
+                                <div><span>商品描述：</span><p>{{items.desc}}</p></div>
+                            </div>
+                            <div class="price"><span>￥{{items.price}}</span></div>
+                            <div class="num">数量：{{items.num}}</div>
+                            <div class="totalPrice"><span>￥{{items.totalPrice}}</span></div>
+                        </div>
+                        <div class="order_foot">
+                            <div class="address">{{item.address}}</div>
+                            <div class="right">
+                                <span>￥{{item.allPrice}}</span>
+                                <div class="buyBtn" v-if='item.status == 1'>结算</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
-<script src="../js/vue.min.js"></script>
 <script>
     var app = new Vue({
         el:'#app',
         data(){
             return{
-
+                nowStatus:0,
+                nav:[
+                    {
+                        title:'全部',
+                        status:'0'
+                    },
+                    {
+                        title:'未付款',
+                        status:'1'
+                    },
+                    {
+                        title:'已付款',
+                        status:'2'
+                    },{
+                        title:'待收货',
+                        status:'3'
+                    },{
+                        title:'已完成',
+                        status:'4'
+                    },
+                ],
+                list:[
+                    {
+                        status:0,
+                        allPrice:300,
+                        order_id:1,
+                        address:"地址地址地址地址地址地址",
+                        com_list:[
+                            {
+                                id:1,
+                                title:'Nike/耐克 Air Jordan 1 AJ1 中小童 黑蓝橙 运动休闲 篮球鞋 BQ6066-123',
+                                price:100,
+                                totalPrice:200,
+                                old_new_degree:'八成新',
+                                desc:'这里是商品描述',
+                                stock:10,
+                                cover_img:'../img/change-2_03.jpg',
+                                status:1,
+                                num:2
+                            },
+                            {
+                                id:2,
+                                title:'Nike/耐克 Air Jordan 1 AJ1 中小童 黑蓝橙 运动休闲 篮球鞋 BQ6066-123',
+                                price:100,
+                                totalPrice:100,
+                                old_new_degree:'九成新',
+                                desc:'这里是商品描述',
+                                stock:10,
+                                cover_img:'../img/change-2_03.jpg',
+                                status:1,
+                                num:1
+                            }
+                        ]
+                    },
+                    {
+                        status:1,
+                        allPrice:400,
+                        order_id:2,
+                        address:"地址地址地址地址地址地址",
+                        com_list:[
+                            {
+                                id:1,
+                                title:'Nike/耐克 Air Jordan 1 AJ1 中小童 黑蓝橙 运动休闲 篮球鞋 BQ6066-123',
+                                price:100,
+                                totalPrice:200,
+                                old_new_degree:'八成新',
+                                desc:'这里是商品描述',
+                                stock:10,
+                                cover_img:'../img/change-2_03.jpg',
+                                status:1,
+                                num:2
+                            },
+                            {
+                                id:2,
+                                title:'Nike/耐克 Air Jordan 1 AJ1 中小童 黑蓝橙 运动休闲 篮球鞋 BQ6066-123',
+                                price:100,
+                                totalPrice:100,
+                                old_new_degree:'九成新',
+                                desc:'这里是商品描述',
+                                stock:10,
+                                cover_img:'../img/change-2_03.jpg',
+                                status:1,
+                                num:2
+                            }
+                        ]
+                    }
+                ]
             }
         },
         methods: {
+            changeNav(status){
+                this.nowStatus = status
+                this.getList()
+            },
             toRegister(){
 
             },
@@ -60,6 +180,9 @@
 
             },
             toAddress(){
+
+            },
+            getList(){
 
             }
 

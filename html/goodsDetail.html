@@ -54,7 +54,7 @@
                                <div class="desc"><span>商品描述</span>：<p>{{info.desc}}</p></div>
                                <div class="stock"><span>库存</span>：<p>{{info.stock}}</p></div>
                             </div>
-                            <div class="buyNum"><span>购买数量</span>：<p><el-input-number v-model="num" :max='info.stock' @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number></p></div>
+                            <div class="buyNum"><span>购买数量</span>：<p><el-input-number size='mini' v-model="num" :max='info.stock' @change="handleChange" :min="1" label="购买数量"></el-input-number></p></div>
                         </div>
                         <div class="addBuyBtn">
                             <div class="buyBtn">立即购买</div>
