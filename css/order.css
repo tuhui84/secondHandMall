@@ -145,7 +145,7 @@
     background-color: #fff;
     height: 40px;
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
 }
 .order_foot .right{
@@ -168,5 +168,47 @@
     cursor: pointer;
 }
 .address{
-    padding-left: 30px;
+    /* padding-left: 30px; */
+}
+.orderAll{
+    width: 100%;
+    background-color: #fff;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.orderAll .topay{
+    display: flex;
+    align-items: center;
+}
+.orderAll .topay >span{
+    display: inline-block;
+    font-size: 18px;
+    color: #e93a38;
+    margin-right: 20px;
+    font-weight: bold;
+}
+.orderAll .topay >div{
+    width: 100px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    color: #fff;
+    font-size: 18px;
+    background-color: #e93a38;
+    cursor: pointer;
+}
+.checkbox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+}
+.checkbox input{
+    width: 20px;
+    height: 20px;
+}
+label{
+    display: flex;
 }

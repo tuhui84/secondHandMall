@@ -43,6 +43,7 @@
                 <div class="orderList">
                     <div v-for='item in list' :key='item.order_id'>
                         <div v-for='items in item.com_list' class="orderDetail">
+                            <div v-if='item.status == 1' class="checkbox"><input type="checkbox" :value='item.order_id' v-model='checkedIds'></div>
                             <div class="img_name">
                                 <div class="img"><img :src="items.cover_img" alt=""></div>
                                 <div class="name">{{items.title}}</div>
@@ -56,12 +57,24 @@
                             <div class="totalPrice"><span>￥{{items.totalPrice}}</span></div>
                         </div>
                         <div class="order_foot">
-                            <div class="address">{{item.address}}</div>
-                            <div class="right">
+                            <div class="name" style="margin-left: 30px;">收件人：{{item.name}}</div>
+                            <div class="phone" style="margin-left: 30px;">电话：{{item.phone}}</div>
+                            <div class="address" style="margin-left: 30px;">收件地址：{{item.address}}</div>
+                            <!-- <div class="right">
                                 <span>￥{{item.allPrice}}</span>
                                 <div class="buyBtn" v-if='item.status == 1'>结算</div>
-                            </div>
+                            </div> -->
                         </div>
+                    </div>
+                </div>
+                <div class="orderAll" v-if='nowStatus == 0'>
+                    <label for="checkall">
+                        <div class="checkbox"><input type="checkbox" id="checkall" @change='checkAllGoods' v-model='checkedAll'></div>
+                        <span style="cursor: pointer;">全选</span>
+                    </label>
+                    <div class="topay">
+                        <span>￥{{totalPrice}}</span>
+                        <div @click='toPay'>去结算</div>
                     </div>
                 </div>
             </div>
@@ -73,31 +86,35 @@
         el:'#app',
         data(){
             return{
+                checkedAll:false,
+                checkedIds:[],
                 nowStatus:0,
                 nav:[
+                    // {
+                    //     title:'全部',
+                    //     status:'0'
+                    // },
                     {
-                        title:'全部',
+                        title:'未付款',
                         status:'0'
                     },
                     {
-                        title:'未付款',
-                        status:'1'
-                    },
-                    {
                         title:'已付款',
-                        status:'2'
+                        status:'1'
                     },{
                         title:'待收货',
-                        status:'3'
+                        status:'2'
                     },{
                         title:'已完成',
-                        status:'4'
+                        status:'3'
                     },
                 ],
                 list:[
                     {
                         status:0,
-                        allPrice:300,
+                        allPrice:200,
+                        name:"收件人名字",
+                        phone:15182366959,
                         order_id:1,
                         address:"地址地址地址地址地址地址",
                         com_list:[
@@ -112,24 +129,14 @@
                                 cover_img:'../img/change-2_03.jpg',
                                 status:1,
                                 num:2
-                            },
-                            {
-                                id:2,
-                                title:'Nike/耐克 Air Jordan 1 AJ1 中小童 黑蓝橙 运动休闲 篮球鞋 BQ6066-123',
-                                price:100,
-                                totalPrice:100,
-                                old_new_degree:'九成新',
-                                desc:'这里是商品描述',
-                                stock:10,
-                                cover_img:'../img/change-2_03.jpg',
-                                status:1,
-                                num:1
                             }
                         ]
                     },
                     {
                         status:1,
-                        allPrice:400,
+                        allPrice:200,
+                        name:"收件人名字",
+                        phone:15182366959,
                         order_id:2,
                         address:"地址地址地址地址地址地址",
                         com_list:[
@@ -144,18 +151,6 @@
                                 cover_img:'../img/change-2_03.jpg',
                                 status:1,
                                 num:2
-                            },
-                            {
-                                id:2,
-                                title:'Nike/耐克 Air Jordan 1 AJ1 中小童 黑蓝橙 运动休闲 篮球鞋 BQ6066-123',
-                                price:100,
-                                totalPrice:100,
-                                old_new_degree:'九成新',
-                                desc:'这里是商品描述',
-                                stock:10,
-                                cover_img:'../img/change-2_03.jpg',
-                                status:1,
-                                num:2
                             }
                         ]
                     }
@@ -163,9 +158,27 @@
             }
         },
         methods: {
+            checkAllGoods(){
+                if(!this.checkedAll){
+                    this.checkedIds = []
+                }else{
+                    this.list.forEach(item => {
+                        this.checkedIds.push(item.order_id)
+                    })
+                }
+            },
             changeNav(status){
+                this.checkedIds = []
                 this.nowStatus = status
                 this.getList()
+            },
+            toPay(){
+                if(!this.checkedIds.length){
+                    this.$message('请至少选择一个订单')
+                    return
+                }
+                // 接口
+
             },
             toRegister(){
 
@@ -186,6 +199,31 @@
 
             }
 
+        },
+        watch: {
+            'checkedIds':function(){
+                let cid = this.checkedIds.length
+                let len = this.list.length
+                if(cid == len){
+                    this.checkedAll = true
+                }else{
+                    this.checkedAll = false
+                }
+            }
+        },
+        computed: {
+            totalPrice(){
+                let allPrice = 0
+                let list = this.list.filter(item => {
+                    if(this.checkedIds.indexOf(item.order_id) != -1){
+                        return item
+                    }
+                })
+                list.forEach(item => {
+                    allPrice += item.allPrice
+                })
+                return allPrice
+            }
         },
     })
 </script>
