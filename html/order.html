@@ -41,20 +41,20 @@
                     <div v-for='item in nav' @click='changeNav(item.status)' :class='nowStatus == item.status?"active":""' :key='item.status'>{{item.title}}</div>
                 </div>
                 <div class="orderList">
-                    <div v-for='item in list' :key='item.order_id'>
+                    <div v-for='item in list' :key='item.id'>
                         <div class="orderDetail">
-                            <div v-if='item.status == 1' class="checkbox"><input type="checkbox" :value='item.order_id' v-model='checkedIds'></div>
+                            <div v-if='item.status == 1' class="checkbox"><input type="checkbox" :value='item.id' v-model='checkedIds'></div>
                             <div class="img_name">
-                                <div class="img"><img :src="item.com_list.cover_img" alt=""></div>
-                                <div class="name">{{item.com_list.title}}</div>
+                                <div class="img"><img :src="item.cover_img" alt=""></div>
+                                <div class="name">{{item.title}}</div>
                             </div>
                             <div class="goodsDetail">
-                                <div><span>新旧程度：</span><p>{{item.com_list.old_new_degree}}</p></div>
-                                <div><span>商品描述：</span><p>{{item.com_list.desc}}</p></div>
+                                <div><span>新旧程度：</span><p>{{item.old_new_degree}}</p></div>
+                                <div><span>商品描述：</span><p>{{item.desc}}</p></div>
                             </div>
-                            <div class="price"><span>￥{{item.com_list.price}}</span></div>
-                            <div class="num">数量：{{item.com_list.num}}</div>
-                            <div class="totalPrice"><span>￥{{item.com_list.totalPrice}}</span></div>
+                            <div class="price"><span>￥{{item.price}}</span></div>
+                            <div class="num">数量：{{item.num}}</div>
+                            <div class="totalPrice"><span>￥{{item.totalPrice}}</span></div>
                         </div>
                         <div class="order_foot">
                             <div class="name" style="margin-left: 30px;">收件人：{{item.name}}</div>
@@ -115,21 +115,16 @@
                         allPrice:200,
                         name:"收件人名字",
                         phone:15182366959,
-                        order_id:1,
                         address:"地址地址地址地址地址地址",
-                        com_list:
-                            {
-                                id:1,
-                                title:'Nike/耐克 Air Jordan 1 AJ1 中小童 黑蓝橙 运动休闲 篮球鞋 BQ6066-123',
-                                price:100,
-                                totalPrice:200,
-                                old_new_degree:'八成新',
-                                desc:'这里是商品描述',
-                                stock:10,
-                                cover_img:'../img/change-2_03.jpg',
-                                status:1,
-                                num:2
-                            }
+                        id:1,
+                        title:'Nike/耐克 Air Jordan 1 AJ1 中小童 黑蓝橙 运动休闲 篮球鞋 BQ6066-123',
+                        price:100,
+                        totalPrice:200,
+                        old_new_degree:'八成新',
+                        desc:'这里是商品描述这里是商品描述这里是商品描述这里是商品描述这里是商品描述这里是商品描述',
+                        stock:10,
+                        cover_img:'../img/change-2_03.jpg',
+                        num:2
                         
                     },
                     {
@@ -137,21 +132,16 @@
                         allPrice:200,
                         name:"收件人名字",
                         phone:15182366959,
-                        order_id:2,
                         address:"地址地址地址地址地址地址",
-                        com_list:
-                            {
-                                id:1,
-                                title:'Nike/耐克 Air Jordan 1 AJ1 中小童 黑蓝橙 运动休闲 篮球鞋 BQ6066-123',
-                                price:100,
-                                totalPrice:200,
-                                old_new_degree:'八成新',
-                                desc:'这里是商品描述',
-                                stock:10,
-                                cover_img:'../img/change-2_03.jpg',
-                                status:1,
-                                num:2
-                            }
+                        id:2,
+                        title:'Nike/耐克 Air Jordan 1 AJ1 中小童 黑蓝橙 运动休闲 篮球鞋 BQ6066-123',
+                        price:100,
+                        totalPrice:200,
+                        old_new_degree:'八成新',
+                        desc:'这里是商品描述这里是商品描述这里是商品描述这里是商品描述这里是商品描述这里是商品描述',
+                        stock:10,
+                        cover_img:'../img/change-2_03.jpg',
+                        num:2
                         
                     }
                 ]
@@ -163,7 +153,7 @@
                     this.checkedIds = []
                 }else{
                     this.list.forEach(item => {
-                        this.checkedIds.push(item.order_id)
+                        this.checkedIds.push(item.id)
                     })
                 }
             },
@@ -177,6 +167,7 @@
                     this.$message('请至少选择一个订单')
                     return
                 }
+                console.log(this.checkedIds)
                 // 接口
                 // this.checkedIds  选择的订单ids
 
@@ -216,7 +207,7 @@
             totalPrice(){
                 let allPrice = 0
                 let list = this.list.filter(item => {
-                    if(this.checkedIds.indexOf(item.order_id) != -1){
+                    if(this.checkedIds.indexOf(item.id) != -1){
                         return item
                     }
                 })

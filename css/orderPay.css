@@ -134,6 +134,7 @@
 }
 .img_name{
     display: flex;
+    width: 400px;
 }
 .img_name .img{
     width: 100px;
@@ -149,11 +150,17 @@
     width: 200px;
     margin-left: 20px;
 }
-
+.goodsDetail{
+    width: 500px;
+}
 .goodsDetail >div{
     display: flex;
-    align-items: center;
     color: #aaa;
+    margin-bottom: 10px;
+}
+.goodsDetail >div >span{
+    display: inline-block;
+    min-width: 70px;
 }
 .price{
     color: #000;
